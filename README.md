@@ -1,10 +1,8 @@
 # ALB AulesScraper (ALB-AS)
 
-![test coverage 0%](https://img.shields.io/badge/test%20coverage-0%25-red.svg) ![build passing](https://img.shields.io/badge/build-passing-brightgreen.svg)
+![test coverage 0%](https://img.shields.io/badge/test%20coverage-0%25-red.svg) ![build passing](https://img.shields.io/badge/build-passing-brightgreen.svg) ![current version 0.1](https://img.shields.io/badge/current%20version-0.1-lightgrey.svg) ![stage alpha](https://img.shields.io/badge/stage-alpha-lightgrey.svg)
 
 ![python version 3.6.8](https://img.shields.io/badge/python%20version-3.6.8-orange.svg) ![database engines SQLite PostgreSQL MySQL](https://img.shields.io/badge/database%20engines-SQLite%2c%20PostgreSQL%2c%20MySQL-orange.svg)
-
-![current version 0.1](https://img.shields.io/badge/current%20version-0.1-gray.svg) ![stage alpha](https://img.shields.io/badge/stage-alpha-gray.svg)
 
 ALB AulesScraper is a web scraper and automatic emailer for Aules written in Python. It will notify you of any new courses on tasks added to your profile.
 
