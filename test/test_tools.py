@@ -1,3 +1,4 @@
+import os
 import pytest
 import requests
 import time
@@ -19,6 +20,7 @@ def login_session():
 
     login_url = versions.get_login_url(version="default")
     res = session_requests.get(login_url)
+    print(login_url)
 
     if res.status_code != requests.codes.ok:
         raise RuntimeError(f"Login GET request returned HTTP {res.status_code} (testing)")
@@ -38,7 +40,7 @@ def login_session():
     return session_requests
 
 def db_config():
-    engine = create_engine("sqlite:///src/db.sqlite3")
+    engine = create_engine(os.getenv("DATABASE_URL"))
     return scoped_session(sessionmaker(bind=engine)) # db
 
 ##### TESTS #####
