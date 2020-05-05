@@ -9,7 +9,7 @@ from email.header import Header
 from .auth import *
 from .alb_as import *
 
-def emailer(db, new_courses, new_tasks, start_time):
+def emailer(db, new_courses, new_tasks, start_time, testing=False):
     print("Generating email text...")
     sent_from = gmail_user
     to = gmail_to
@@ -78,18 +78,13 @@ def emailer(db, new_courses, new_tasks, start_time):
 
     %s
     """ % (body, footer)
-
+    if testing:
+        return email_text
     msg = MIMEText(email_text.encode('utf-8'), _charset='utf-8')
     msg['From'] = sent_from
     msg['To'] = to
     msg['Subject'] = Header(subject, "utf-8")
 
-    """
-    msg['Body'] = email_text
-    _attach = MIMEText(email_text, 'UTF-8')
-    msg.attach(_attach)
-    print(_attach)
-    """
     try:
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         server.ehlo()

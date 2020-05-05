@@ -1,10 +1,10 @@
 # ALB AulesScraper (ALB-AS)
 
-![test coverage 0%](https://img.shields.io/badge/test%20coverage-0%25-red.svg) ![build passing](https://img.shields.io/badge/build-passing-brightgreen.svg) ![current version 0.1](https://img.shields.io/badge/current%20version-0.1-lightgrey.svg) ![stage alpha](https://img.shields.io/badge/stage-alpha-lightgrey.svg)
+![test coverage 79%](https://img.shields.io/badge/test%20coverage-79%25-yellow.svg) ![build failing](https://img.shields.io/badge/build-failing-red.svg) ![current version 0.1.1](https://img.shields.io/badge/current%20version-0.1.1-lightgrey.svg) ![stage beta](https://img.shields.io/badge/stage-beta-brightgreen.svg)
 
 ![python version 3.6.8](https://img.shields.io/badge/python%20version-3.6.8-orange.svg) ![database engines SQLite PostgreSQL MySQL](https://img.shields.io/badge/database%20engines-SQLite%2c%20PostgreSQL%2c%20MySQL-orange.svg)
 
-ALB AulesScraper is a web scraper and automatic emailer for Aules written in Python. It will notify you of any new courses on tasks added to your profile.
+ALB AulesScraper is a web scraper and automatic emailer for Aules written in Python. It will notify you of any new courses or tasks added to your profile.
 
 ## Setup
 
@@ -22,7 +22,16 @@ ALB AulesScraper is a web scraper and automatic emailer for Aules written in Pyt
 
 7. Move back to the `src/` directory and run `scraper.py` (`$ python scraper.py`) and get your update right into your inbox.
 
+## Version History
+
+- **v0.1-beta** (April 2020): ALB-AS for basic scraping of courses and tasks. Email support Gmail only.
+  - **v0.1.1-beta** (May 2020): Added support for Aules4, improved test coverage to 79%. **Build failing**. Bug fixes and improvements.
+
 ## Compatibility
+
+### Aules compatibility
+
+The last supported version of Aules is Aules4, the latest available version as of May 5 2020.
 
 ### Python compatibility
 

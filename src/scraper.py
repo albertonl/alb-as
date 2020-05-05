@@ -7,12 +7,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 from models import Task, Course
-from util import auth, course_scraper, emailer # if you are cloning, add auth.py yourself with your data (more info in util/README.md)
+from util import auth, course_scraper, emailer, versions # if you are cloning, add auth.py yourself with your data (more info in util/README.md)
 
 engine = create_engine('sqlite:///db.sqlite3') # mine is set to 'sqlite:///db.sqlite3'
 db = scoped_session(sessionmaker(bind=engine))
 
-def main(start_time):
+def main(start_time, testing=False):
     payload = {
         "username": auth.username,
         "password": auth.password,
@@ -22,7 +22,7 @@ def main(start_time):
     session_requests = requests.session() # initialize session object
 
     # log in
-    login_url = 'https://aules2.edu.gva.es/moodle/login/index.php'
+    login_url = versions.get_login_url(version="default")
     res = session_requests.get(login_url)
 
     if res.status_code != requests.codes.ok:
@@ -55,7 +55,7 @@ def main(start_time):
         print()
         course.print_course_data()
         print("Analyzing...")
-        for task in course_scraper.find_tasks(session=session_requests, url=course.url):
+        for task in course_scraper.find_tasks(session=session_requests, url=versions.convert_url(url=course.url,mode="auto")):
             task_obj = Task(url=task[0],name=task[1],type=task[2])
             task_obj.set_id(course_scraper.get_id(url=task[0])[0])
             task_obj.print_task_data()
@@ -73,9 +73,10 @@ def main(start_time):
         if not db_course:
             print("NEW", end=" ")
             course.print_course_data()
-            db.execute("INSERT INTO courses (cid, cname, curl) VALUES (:cid, :cname, :curl)",
-                {"cid": course.id, "cname": course.name, "curl": course.url})
-            db.commit()
+            if not testing:
+                db.execute("INSERT INTO courses (cid, cname, curl) VALUES (:cid, :cname, :curl)",
+                    {"cid": course.id, "cname": course.name, "curl": course.url})
+                db.commit()
             new_courses.append(course.id)
 
         for task in course.tasks:
@@ -85,12 +86,21 @@ def main(start_time):
             if not db_task:
                 print("NEW", end=" ")
                 task.print_task_data()
-                db.execute("INSERT INTO tasks (tid, tname, turl, type, cid_fk) VALUES (:tid, :tname, :turl, :type, :cid_fk)",
-                    {"tid": task.id, "tname": task.name, "turl": task.url, "type": task.type, "cid_fk": course.id})
-                db.commit()
+                if not testing:
+                    db.execute("INSERT INTO tasks (tid, tname, turl, type, cid_fk) VALUES (:tid, :tname, :turl, :type, :cid_fk)",
+                        {"tid": task.id, "tname": task.name, "turl": task.url, "type": task.type, "cid_fk": course.id})
+                    db.commit()
                 new_tasks.append(task.id)
 
-    emailer.emailer(db=db, new_courses=new_courses, new_tasks=new_tasks, start_time=start_time)
+    emailer.emailer(db=db,
+        new_courses=new_courses,
+        new_tasks=new_tasks,
+        start_time=start_time,
+        testing=True if testing else False
+    )
+    if testing:
+        # if it reached this point, well enough as to return True
+        return True
 
 if __name__ == '__main__':
     start_time = time.time()

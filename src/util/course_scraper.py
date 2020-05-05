@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 import urllib.parse as urlparse
 from urllib.parse import parse_qs
 
+from .versions import get_dashboard_url
+
 task_types = [
     'forum',
     'assign',
@@ -18,8 +20,11 @@ task_types = [
 def find_courses(session):
     """ Finds all active courses in your dashboard and returns a list with the names and corresponding URLs """
     # retrieve request data
-    dashboard_url = 'https://aules2.edu.gva.es/moodle/my/'
+    dashboard_url = get_dashboard_url()
     res = session.get(dashboard_url)
+
+    if res.status_code != requests.codes.ok:
+        raise RuntimeError(f"Dashboard GET request returned HTTP {res.status_code}")
     soup = BeautifulSoup(res.content, 'html.parser')
 
     # initialize empty course list
@@ -36,7 +41,7 @@ def find_courses(session):
 def get_id(url):
     """
         Returns the ID of a course or a task given the URL.
-        URL structure: https://aules2.edu.gva.es/moodle/course/view.php?id=XXXXX
+        URL structure: https://aules4.edu.gva.es/moodle/course/view.php?id=XXXXX
     """
     parsed = urlparse.urlparse(url)
     return parse_qs(parsed.query)['id']
@@ -44,6 +49,9 @@ def get_id(url):
 def find_tasks(session, url):
     """ Returns a list of tasks given the course URL. """
     res = session.get(url)
+
+    if res.status_code != requests.codes.ok:
+        raise RuntimeError(f"GET request for course {get_id(url)} returned HTTP {res.status_code}")
     soup = BeautifulSoup(res.content, 'html.parser')
 
     # initialize empty task lists
@@ -53,7 +61,7 @@ def find_tasks(session, url):
         'url': '',
         'name': ''
     }
-    
+
     # find all instances of tasks in a course's page
     for type in task_types:
         # get tasks with specific type
