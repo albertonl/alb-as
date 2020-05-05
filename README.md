@@ -1,6 +1,6 @@
 # ALB AulesScraper (ALB-AS)
 
-![test coverage 79%](https://img.shields.io/badge/test%20coverage-79%25-yellow.svg) ![build failing](https://img.shields.io/badge/build-failing-red.svg) ![current version 0.1.1](https://img.shields.io/badge/current%20version-0.1.1-lightgrey.svg) ![stage beta](https://img.shields.io/badge/stage-beta-brightgreen.svg)
+![test coverage 79%](https://img.shields.io/badge/test%20coverage-79%25-yellow.svg) ![build failing](https://img.shields.io/badge/build-failing-red.svg) ![current version 0.1.1](https://img.shields.io/badge/current%20version-0.1.1-blue.svg) ![stage beta](https://img.shields.io/badge/stage-beta-blue.svg)
 
 ![python version 3.6.8](https://img.shields.io/badge/python%20version-3.6.8-orange.svg) ![database engines SQLite PostgreSQL MySQL](https://img.shields.io/badge/database%20engines-SQLite%2c%20PostgreSQL%2c%20MySQL-orange.svg)
 
