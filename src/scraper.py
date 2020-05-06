@@ -7,8 +7,8 @@ from bs4 import BeautifulSoup
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-from .models import Task, Course
-from .util import auth, course_scraper, emailer, versions # if you are cloning, add auth.py yourself with your data (more info in util/README.md)
+from models import Task, Course
+from util import auth, course_scraper, emailer, versions # if you are cloning, add auth.py yourself with your data (more info in util/README.md)
 
 engine = create_engine(os.getenv("DATABASE_URL")) # mine is set to 'sqlite:///db.sqlite3'
 db = scoped_session(sessionmaker(bind=engine))
