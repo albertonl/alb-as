@@ -12,7 +12,7 @@ task_types = [
     'assign',
     'resource',
     'url',
-    'page'
+    'page',
     'dialogue',
     'quiz'
 ]
