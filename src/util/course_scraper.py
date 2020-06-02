@@ -44,7 +44,10 @@ def get_id(url):
         URL structure: https://aules4.edu.gva.es/moodle/course/view.php?id=XXXXX
     """
     parsed = urlparse.urlparse(url)
-    return parse_qs(parsed.query)['id']
+    try:
+        return parse_qs(parsed.query)['id']
+    except KeyError:
+        return None
 
 def find_tasks(session, url):
     """ Returns a list of tasks given the course URL. """

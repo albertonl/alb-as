@@ -21,7 +21,7 @@ def emailer(db, new_courses, new_tasks, start_time, testing=False):
     if new_courses:
         course_list = '('
         for i in range(0, len(new_courses)):
-            course_list += new_courses[i]
+            course_list += str(new_courses[i])
             if i != len(new_courses)-1:
                 course_list += ', '
         course_list += ')'
