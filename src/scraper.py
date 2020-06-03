@@ -47,9 +47,9 @@ def main(start_time, testing=False):
     # scrape courses
     courses = [] # initialize empty course list
     for course in course_scraper.find_courses(session=session_requests):
-        courses.append(Course(url=course[0], name=course[1]))
         if course_scraper.get_id(url=course[0]) is None:
             continue
+        courses.append(Course(url=course[0], name=course[1]))
         courses[len(courses)-1].set_id(course_scraper.get_id(url=course[0])[0])
         courses[len(courses)-1].print_course_data()
 
